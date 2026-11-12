@@ -1,6 +1,6 @@
 # EventHub — College Event Management Portal
 
-> **Note:** This is a simple web application created for academic coursework to demonstrate full-stack development using Python, Flask, SQLite, and HTML/CSS.
+> **Note:** This is a very simple web application created for academic coursework to demonstrate full-stack development using Python, Flask, SQLite, and HTML/CSS.
 
 ## Overview
 
