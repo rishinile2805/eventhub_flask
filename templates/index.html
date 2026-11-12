@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Upcoming College Events</h2>
+
+{% if not events %}
+    <div class="card">
+        <p>No events scheduled yet. {% if session.get('is_admin') %}<a href="{{ url_for('create_event') }}">Create the first event</a>.{% endif %}</p>
+    </div>
+{% endif %}
+
+{% for event in events %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
+        <div>
+            <h3 style="margin: 0 0 0.4rem;">{{ event['title'] }}</h3>
+            <div class="meta">
+                📅 {{ event['date'] }} &nbsp;|&nbsp; 📍 {{ event['venue'] }} &nbsp;|&nbsp; 👥 {{ event['reg_count'] }} Registered
+            </div>
+        </div>
+
+        {% if session.get('is_admin') %}
+        <div class="admin-actions">
+            <a href="{{ url_for('participants', event_id=event['id']) }}" class="btn btn-secondary">Participants</a>
+            <form action="{{ url_for('delete_event', event_id=event['id']) }}" method="POST" style="margin: 0;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <p>{{ event['description'] }}</p>
+
+    <form class="reg-form" action="{{ url_for('register', event_id=event['id']) }}" method="POST">
+        <input type="text" name="student_name" placeholder="Your Full Name" required>
+        <input type="email" name="student_email" placeholder="College Email" required>
+        <button type="submit" class="btn">Register</button>
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

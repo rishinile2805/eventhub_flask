@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub | College Events</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #f4f6f9; color: #222; margin: 0; }
+        nav { background: #1e293b; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; }
+        .container { max-width: 850px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+        .btn { background: #2563eb; color: #fff; border: none; padding: 0.55rem 1rem; border-radius: 5px; cursor: pointer; font-size: 0.9rem; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #1d4ed8; }
+        .btn-secondary { background: #475569; }
+        .btn-secondary:hover { background: #334155; }
+        .btn-danger { background: #dc2626; }
+        .btn-danger:hover { background: #b91c1c; }
+        input, textarea { width: 100%; padding: 0.6rem; margin: 0.4rem 0 1rem; border: 1px solid #cbd5e1; border-radius: 5px; box-sizing: border-box; }
+        .flash { background: #dcfce7; color: #166534; padding: 0.8rem 1rem; border-radius: 5px; margin-bottom: 1rem; }
+        .meta { color: #64748b; font-size: 0.9rem; margin-bottom: 0.8rem; }
+        .reg-form { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+        .reg-form input { width: auto; flex: 1; margin: 0; }
+        .admin-actions { display: flex; gap: 0.5rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; color: #475569; }
+    </style>
+</head>
+<body>
+    <nav>
+        <strong>EventHub</strong>
+        <div>
+            <a href="{{ url_for('index') }}">All Events</a>
+            {% if session.get('is_admin') %}
+                <a href="{{ url_for('create_event') }}">+ Host Event</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Admin Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="flash">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

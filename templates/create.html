@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Host a New Event</h2>
+<div class="card">
+    <form method="POST">
+        <label>Event Title</label>
+        <input type="text" name="title" placeholder="e.g., Hackathon 2026" required>
+
+        <label>Date</label>
+        <input type="date" name="date" required>
+
+        <label>Venue</label>
+        <input type="text" name="venue" placeholder="e.g., Main Auditorium" required>
+
+        <label>Description</label>
+        <textarea name="description" rows="4" placeholder="Brief details about the event..."></textarea>
+
+        <button type="submit" class="btn">Publish Event</button>
+    </form>
+</div>
+{% endblock %}
